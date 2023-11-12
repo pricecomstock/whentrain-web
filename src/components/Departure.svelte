@@ -68,14 +68,6 @@
 		font-size: max(2vw, 2em);
 	}
 
-	.train-icon {
-		flex: 0 1;
-		align-self: baseline;
-	}
-
-	.small-eta {
-	}
-
 	.direction-label {
 		flex: 1 0;
 		text-align: left;

@@ -43,6 +43,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{station.stopName}</title>
+</svelte:head>
+
 <!-- Train or station icons -->
 <div class="station-title">
 	<div class="icons">
