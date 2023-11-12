@@ -4,7 +4,7 @@ docker kill $project_name-test >/dev/null
 docker rm $project_name-test >/dev/null
 
 function reloadprod {
-  ssh root@pccloud "cd ~/$project_name ; docker-compose pull ; docker-compose down ; docker-compose up -d"
+  ssh root@pccloud "cd ~/docker/whentrain-nyc ; docker-compose pull ; docker-compose down ; docker-compose up -d"
 }
 
 function push {
