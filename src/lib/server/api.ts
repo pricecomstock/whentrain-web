@@ -1,7 +1,9 @@
-import { WHENTRAIN_API_URL, WHENTRAIN_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { getCachedFunction, getTimedMemoizedFunction } from '$lib/helpers/cache';
 import type { ArrivalDepartureTime } from '$lib/types/departures';
 import type { Station } from '$lib/types/station';
+
+const { WHENTRAIN_API_KEY, WHENTRAIN_API_URL } = env;
 
 export interface TrainDetails {
 	stations: Station[];

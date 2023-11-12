@@ -1,4 +1,7 @@
-import adapter from 'svelte-adapter-bun';
+// Would love to use bun but it ain't working
+// The browser is simply saying "Uh oh!!" because of a blank header or something
+import adapter from '@sveltejs/adapter-node';
+// import adapter from 'svelte-adapter-bun';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
