@@ -13,6 +13,7 @@
 
 	let lastUpdatedTime = Date.now();
 	let currentTime = Date.now();
+	$: updatedSecondsAgo = Math.max(0, Math.floor((currentTime - lastUpdatedTime) / 1000));
 
 	onMount(() => {
 		isShowingMenu.set(false);
@@ -27,6 +28,7 @@
 	onDestroy(() => {
 		selectedStation.set(null);
 		clearInterval(fetchCurrentDeparturesIntervalId);
+		clearInterval(currentTimeIntervalId);
 	});
 
 	$: ({ departures: onLoadDepartures, station } = data);
@@ -57,10 +59,16 @@
 	{data.station.stopName}
 </div>
 
-<DeparturesList {departures} {station} />
+{#if departures.length}
+	<DeparturesList {departures} {station} />
+{:else}
+	<div class="no-departures">
+		There are no trains at this station. Maybe they aren't running right now!
+	</div>
+{/if}
 
 <div class="last-updated">
-	Last updated {Math.max(0, Math.floor((currentTime - lastUpdatedTime) / 1000))}s ago
+	Last updated {updatedSecondsAgo}s ago
 </div>
 
 <style>
@@ -72,6 +80,13 @@
 
 		font-size: max(1.25rem, 2vw);
 		font-weight: bold;
+	}
+
+	.no-departures {
+		text-align: center;
+		font-size: 1.5rem;
+		/* font-weight: bold; */
+		margin: 2rem auto;
 	}
 
 	.last-updated {
