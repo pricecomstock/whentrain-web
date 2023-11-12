@@ -37,9 +37,8 @@
 
 {#if departure.timestamp && station.gtfsStopId}
 	<div class="arrival" class:arriving={isArrivingSoon} on:click={toggleDebug}>
-		<!-- <div class="train-icon"> -->
-		<TrainIcon train={departure.train} size="max(3vw, 2rem)" />
-		<!-- </div> -->
+		<!-- The em lets this scale with the font size for the whole thing. -->
+		<TrainIcon train={departure.train} size="max(1.5em, 2rem)" />
 		<div class="direction-label">{directionLabel}</div>
 		{#if debug}
 			<div class="eta">
@@ -65,7 +64,7 @@
 		align-items: center;
 		justify-content: stretch;
 		font-weight: bold;
-		font-size: max(2vw, 2em);
+		font-size: max(2.5vw, 1.5rem);
 	}
 
 	.direction-label {

@@ -6,23 +6,29 @@
 	import type { SimplifiedStationWithDistance } from '$lib/types/station';
 
 	import StationList from '$components/StationList.svelte';
+	import { fly } from 'svelte/transition';
+	import { isShowingMenu } from '$lib/stores/showMenu';
 
 	export let data: PageServerData;
 	$: ({ stations } = data);
 
-	// TODO use localstorage to check if we have previously gotten permission for the user's location
-	// If not, do not prompt until they click the button.
+	let isLoading = false;
+	let error = '';
 
-	const distanceThresholdMiles = 0.7;
+	const distanceThresholdMiles = 0.75;
+	let latLongDisplay = '';
 	let nearbyStations: SimplifiedStationWithDistance[] = [];
 
 	const getNearbyStations = async () => {
 		if (!navigator) {
 			return;
 		}
+		isLoading = true;
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				const { latitude, longitude } = position.coords;
+
+				latLongDisplay = `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`;
 
 				hasLocationPermission.set(true);
 
@@ -39,8 +45,13 @@
 					}
 				}
 				nearbyStations.sort((a, b) => a.distance - b.distance);
+				isLoading = false;
+
+				isShowingMenu.set(false);
 			},
 			() => {
+				isLoading = false;
+				error = 'Either you denied location permission, or your browser does not support it.';
 				console.log("can't get location");
 			}
 		);
@@ -63,14 +74,30 @@
 	</div>
 {/if}
 
-<div class="station-list">
-	{#if $hasLocationPermission && nearbyStations.length === 0}
-		<p>No nearby stations found.</p>
-		<p>Maybe you're not here in the big apple?</p>
-	{/if}
-	<h2>Nearby Stations</h2>
-	<StationList stations={nearbyStations} />
-</div>
+{#if isLoading}
+	<div class="loader-container">
+		<div class="loader-spin">
+			<img src="img/subway-icons/l.svg" alt="" />
+		</div>
+		oading...
+	</div>
+{/if}
+
+{#if error}
+	<p>{error}</p>
+{/if}
+
+{#if !isLoading && $hasLocationPermission && nearbyStations.length === 0}
+	<p>No nearby stations found.</p>
+	<p>Maybe you're not here in the big apple? Your location is {latLongDisplay}</p>
+{/if}
+
+{#if nearbyStations.length > 0}
+	<div class="station-list" in:fly={{ x: -100, duration: 150 }}>
+		<h2>Nearby Stations</h2>
+		<StationList stations={nearbyStations} />
+	</div>
+{/if}
 
 {#if $hasLocationPermission}
 	<p class="info">
@@ -89,6 +116,32 @@
 		max-width: 50ch;
 		margin: 1rem auto;
 		text-align: center;
+	}
+
+	.loader-container {
+		display: flex;
+		/* flex-direction: column; */
+		justify-content: center;
+		align-items: center;
+		gap: 0.25rem;
+
+		font-size: 1.5em;
+	}
+
+	.loader-spin {
+		animation: spin 2s linear infinite;
+
+		width: 2rem;
+		height: 2rem;
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	.location-prompt {

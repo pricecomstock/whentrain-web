@@ -53,7 +53,7 @@
 <div class="station-title">
 	<div class="icons">
 		{#each data.station.trains as train}
-			<TrainIcon {train} size="max(1.5rem, 2vw)" alignMiddle />
+			<TrainIcon {train} size="max(1.5em, 2vw)" alignMiddle />
 		{/each}
 	</div>
 	{data.station.stopName}
@@ -78,7 +78,7 @@
 		justify-content: center;
 		gap: 0.5rem;
 
-		font-size: max(1.25rem, 2vw);
+		font-size: max(2.5vw, 1.5em);
 		font-weight: bold;
 	}
 
