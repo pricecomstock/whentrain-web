@@ -29,6 +29,10 @@
 	</p>
 </div>
 
+<svelte:head>
+	<title>whentrain.nyc - api</title>
+</svelte:head>
+
 <style>
 	div {
 		margin: auto;

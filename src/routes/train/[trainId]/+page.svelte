@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import StationList from '$components/StationList.svelte';
 	import { compareBoroughs, getBoroughName } from '$lib/helpers/utils';
 	import type { SimplifiedStation } from '$lib/types/station';
@@ -16,6 +17,10 @@
 		return compareBoroughs(boroughA, boroughB);
 	});
 </script>
+
+<svelte:head>
+	<title>whentrain.nyc - {$page.params.trainId.toUpperCase()} train</title>
+</svelte:head>
 
 <div class="station-lists">
 	{#each stationsByBoroughSorted as [borough, stations]}
@@ -42,6 +47,6 @@
 
 	.borough-station-list {
 		margin: 0 auto;
-		width: min(100%, 22rem);
+		width: min(96%, 22rem);
 	}
 </style>

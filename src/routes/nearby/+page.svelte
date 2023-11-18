@@ -64,6 +64,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>whentrain.nyc - nearby</title>
+</svelte:head>
+
 {#if !$hasLocationPermission}
 	<div class="location-prompt">
 		<p>
@@ -109,7 +113,7 @@
 <style>
 	.station-list {
 		margin: 0 auto;
-		width: min(100%, 27rem);
+		width: min(96%, 27rem);
 	}
 
 	p {

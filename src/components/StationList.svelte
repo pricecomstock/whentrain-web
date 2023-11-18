@@ -40,7 +40,7 @@
 	.train-icons {
 		display: flex;
 		justify-content: flex-end;
-		gap: 0.05rem;
+		gap: 0.1rem;
 		line-height: 1.75rem;
 	}
 

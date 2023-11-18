@@ -9,6 +9,7 @@
 	--mta-123: #ee352e;
 	--mta-456: #00933c;
 	--mta-7: #b933ad;
+	--mta-t: #00add0;
 	--black: #333;
 	--gray: #666;
 
@@ -73,6 +74,9 @@ body {
 .fg-mta-7 {
 	color: var(--mta-7);
 }
+.fg-mta-t {
+	color: var(--mta-t);
+}
 
 .bg-mta-ace {
 	background-color: var(--mta-ace);
@@ -103,6 +107,9 @@ body {
 }
 .bg-mta-7 {
 	background-color: var(--mta-7);
+}
+.bg-mta-t {
+	background-color: var(--mta-t);
 }
 
 .button {

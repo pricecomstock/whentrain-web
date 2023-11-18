@@ -4,6 +4,10 @@
 	import Header from './Header.svelte';
 </script>
 
+<svelte:head>
+	<title>whentrain.nyc</title>
+</svelte:head>
+
 <Header />
 <slot />
 <Footer />
