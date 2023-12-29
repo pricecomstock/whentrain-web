@@ -51,7 +51,8 @@
 			},
 			() => {
 				isLoading = false;
-				error = 'Either you denied location permission, or your browser does not support it.';
+				error =
+					'Either you denied location permission, or your browser does not support it. If you are on iOS and it seems like your browser really should support this, try going to System Settings > Privacy and Security > Location Services > Safari Websites and setting it to "While Using the App".';
 				console.log("can't get location");
 			}
 		);
